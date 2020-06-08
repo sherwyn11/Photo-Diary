@@ -24,7 +24,13 @@ dependencies:
 
   flutter_auth_buttons: ^0.8.0
   fluro: ^1.6.3
-
+  avatar_glow:
+  google_fonts:
+  firebase_core:
+  firebase_analytics:
+  firebase_auth:
+  cloud_firestore:
+  google_sign_in:
 
   flutter:
     sdk: flutter

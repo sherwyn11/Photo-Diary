@@ -1,6 +1,6 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:photo_diary/screens/Login.dart';
+import 'package:photo_diary/screens/login.dart';
 
 class FluroRouter {
   static final router = Router();
