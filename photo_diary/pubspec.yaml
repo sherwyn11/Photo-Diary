@@ -21,6 +21,11 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+
+  flutter_auth_buttons: ^0.8.0
+  fluro: ^1.6.3
+
+
   flutter:
     sdk: flutter
 
