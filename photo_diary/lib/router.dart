@@ -1,17 +1,26 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:photo_diary/screens/login.dart';
+import 'package:photo_diary/screens/timeline.dart';
 
 class FluroRouter {
   static final router = Router();
 
-  static var usersHandler =
+  static var loginHandler =
       Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
     return Login();
   });
 
+  static var timelineHandler =
+      Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+    return TimelinePage();
+  });
+
   static handleRoutes() {
     router.define('login',
-        handler: usersHandler, transitionType: TransitionType.cupertino);
+        handler: loginHandler, transitionType: TransitionType.cupertino);
+
+    router.define('timeline',
+        handler: timelineHandler, transitionType: TransitionType.fadeIn);
   }
 }

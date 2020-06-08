@@ -31,6 +31,7 @@ dependencies:
   firebase_auth:
   cloud_firestore:
   google_sign_in:
+  timeline_list:
 
   flutter:
     sdk: flutter

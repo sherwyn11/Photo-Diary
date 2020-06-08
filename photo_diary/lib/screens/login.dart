@@ -8,6 +8,7 @@ import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:photo_diary/components/delayed_animation.dart';
+import 'package:photo_diary/router.dart';
 import 'package:photo_diary/utils/userData.dart';
 
 class Login extends StatefulWidget {
@@ -41,7 +42,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
     UserData data = new UserData(user.providerId, user.displayName,
         user.photoUrl, user.email, providerData);
 
-    print(data.photoUrl);
+    return user;
   }
 
   @override
@@ -64,113 +65,113 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
     final color = Colors.white;
     _scale = 1 - _controller.value;
     return Builder(
-      builder: (context) => MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Scaffold(
-          backgroundColor: Colors.teal[300],
-          body: Center(
-            child: Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Column(
-                children: <Widget>[
-                  AvatarGlow(
-                    endRadius: 90,
-                    duration: Duration(seconds: 2),
-                    glowColor: Colors.white24,
-                    repeat: true,
-                    repeatPauseDuration: Duration(seconds: 2),
-                    startDelay: Duration(seconds: 1),
-                    child: Material(
-                        elevation: 8.0,
-                        shape: CircleBorder(),
-                        child: CircleAvatar(
-                          backgroundColor: Colors.grey[100],
-                          child: Icon(
-                            Icons.camera_alt,
-                            size: 50.0,
-                          ),
-                          radius: 50.0,
-                        )),
-                  ),
-                  DelayedAnimation(
-                    child: Text("Hi There",
-                        style: GoogleFonts.pacifico(
-                          textStyle: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 35.0,
-                              letterSpacing: 2.0,
-                              color: color),
-                        )),
-                    delay: delayedAmount + 1000,
-                  ),
-                  DelayedAnimation(
-                    child: Text(
-                      "I'm Reflectly",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 35.0,
-                          color: color),
-                    ),
-                    delay: delayedAmount + 2000,
-                  ),
-                  SizedBox(
-                    height: 30.0,
-                  ),
-                  DelayedAnimation(
-                    child: Text(
-                      "Your New Personal",
-                      style: TextStyle(fontSize: 20.0, color: color),
-                    ),
-                    delay: delayedAmount + 3000,
-                  ),
-                  DelayedAnimation(
-                    child: Text(
-                      "Journaling  companion",
-                      style: TextStyle(fontSize: 20.0, color: color),
-                    ),
-                    delay: delayedAmount + 3000,
-                  ),
-                  SizedBox(
-                    height: 100.0,
-                  ),
-                  DelayedAnimation(
-                    child: GestureDetector(
-                      onTapDown: _onTapDown,
-                      onTapUp: _onTapUp,
-                      child: Transform.scale(
-                        scale: _scale,
-                        child: GoogleSignInButton(
-                          onPressed: () => _signIn(context)
-                              .then((FirebaseUser user) => print(user))
-                              .catchError((e) => print(e)),
-                          splashColor: Colors.white,
-                          borderRadius: 4.0,
-                          textStyle: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w700,
-                              fontFamily: "Roboto"),
-                          darkMode: true,
+      builder: (context) => Scaffold(
+        backgroundColor: Colors.teal[300],
+        body: Center(
+          child: Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Column(
+              children: <Widget>[
+                AvatarGlow(
+                  endRadius: 90,
+                  duration: Duration(seconds: 2),
+                  glowColor: Colors.white24,
+                  repeat: true,
+                  repeatPauseDuration: Duration(seconds: 2),
+                  startDelay: Duration(seconds: 1),
+                  child: Material(
+                      elevation: 8.0,
+                      shape: CircleBorder(),
+                      child: CircleAvatar(
+                        backgroundColor: Colors.grey[100],
+                        child: Icon(
+                          Icons.camera_alt,
+                          size: 50.0,
                         ),
+                        radius: 50.0,
+                      )),
+                ),
+                DelayedAnimation(
+                  child: Text("Hi There",
+                      style: GoogleFonts.pacifico(
+                        textStyle: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 35.0,
+                            letterSpacing: 2.0,
+                            color: color),
+                      )),
+                  delay: delayedAmount + 1000,
+                ),
+                DelayedAnimation(
+                  child: Text(
+                    "I'm Reflectly",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 35.0,
+                        color: color),
+                  ),
+                  delay: delayedAmount + 2000,
+                ),
+                SizedBox(
+                  height: 30.0,
+                ),
+                DelayedAnimation(
+                  child: Text(
+                    "Your New Personal",
+                    style: TextStyle(fontSize: 20.0, color: color),
+                  ),
+                  delay: delayedAmount + 3000,
+                ),
+                DelayedAnimation(
+                  child: Text(
+                    "Journaling  companion",
+                    style: TextStyle(fontSize: 20.0, color: color),
+                  ),
+                  delay: delayedAmount + 3000,
+                ),
+                SizedBox(
+                  height: 100.0,
+                ),
+                DelayedAnimation(
+                  child: GestureDetector(
+                    onTapDown: _onTapDown,
+                    onTapUp: _onTapUp,
+                    child: Transform.scale(
+                      scale: _scale,
+                      child: GoogleSignInButton(
+                        onPressed: () => _signIn(context)
+                            .then((FirebaseUser user) => {
+                                  Navigator.pushReplacementNamed(
+                                      context, "timeline")
+                                })
+                            .catchError((e) => print(e)),
+                        splashColor: Colors.white,
+                        borderRadius: 4.0,
+                        textStyle: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700,
+                            fontFamily: "Roboto"),
+                        darkMode: true,
                       ),
                     ),
-                    delay: delayedAmount + 4000,
                   ),
-                  SizedBox(
-                    height: 50.0,
+                  delay: delayedAmount + 4000,
+                ),
+                SizedBox(
+                  height: 50.0,
+                ),
+                DelayedAnimation(
+                  child: Text(
+                    "I Already have An Account".toUpperCase(),
+                    style: TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                        color: color),
                   ),
-                  DelayedAnimation(
-                    child: Text(
-                      "I Already have An Account".toUpperCase(),
-                      style: TextStyle(
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold,
-                          color: color),
-                    ),
-                    delay: delayedAmount + 5000,
-                  ),
-                ],
-              ),
+                  delay: delayedAmount + 5000,
+                ),
+              ],
             ),
           ),
         ),
