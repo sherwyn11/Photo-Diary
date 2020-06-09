@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:timeline_list/timeline.dart';
-import 'package:timeline_list/timeline_model.dart';
-import 'package:photo_diary/utils/data.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:photo_diary/utils/hexColor.dart';
 
 class TimelinePage extends StatefulWidget {
   TimelinePage({Key key, this.title}) : super(key: key);
@@ -12,95 +11,208 @@ class TimelinePage extends StatefulWidget {
 }
 
 class _TimelinePageState extends State<TimelinePage> {
-  final PageController pageController =
-      PageController(initialPage: 1, keepPage: true);
-  int pageIx = 1;
-
   @override
   Widget build(BuildContext context) {
-    List<Widget> pages = [
-      timelineModel(TimelinePosition.Left),
-      timelineModel(TimelinePosition.Center),
-      timelineModel(TimelinePosition.Right)
-    ];
-
     return Scaffold(
-        bottomNavigationBar: BottomNavigationBar(
-            currentIndex: pageIx,
-            onTap: (i) => pageController.animateToPage(i,
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.easeInOut),
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.format_align_left),
-                title: Text("LEFT"),
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.format_align_center),
-                title: Text("CENTER"),
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.format_align_right),
-                title: Text("RIGHT"),
-              ),
-            ]),
+        backgroundColor: HexColor("#FCD0BA"),
         appBar: AppBar(
-          title: Text('Test'),
-        ),
-        body: PageView(
-          onPageChanged: (i) => setState(() => pageIx = i),
-          controller: pageController,
-          children: pages,
-        ));
-  }
-
-  timelineModel(TimelinePosition position) => Timeline.builder(
-      itemBuilder: centerTimelineBuilder,
-      itemCount: cards.length,
-      physics: position == TimelinePosition.Left
-          ? ClampingScrollPhysics()
-          : BouncingScrollPhysics(),
-      position: position);
-
-  TimelineModel centerTimelineBuilder(BuildContext context, int i) {
-    final CardData = cards[i];
-    final textTheme = Theme.of(context).textTheme;
-    return TimelineModel(
-        Card(
-          margin: EdgeInsets.symmetric(vertical: 16.0),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-          clipBehavior: Clip.antiAlias,
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Image.network(CardData.image),
-                const SizedBox(
-                  height: 8.0,
-                ),
-                Text(CardData.time, style: textTheme.caption),
-                const SizedBox(
-                  height: 8.0,
-                ),
-                Text(
-                  CardData.name,
-                  style: textTheme.title,
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(
-                  height: 8.0,
-                ),
-              ],
+          title: Text(
+            'Your Timeline',
+            style: GoogleFonts.pacifico(
+              textStyle:
+                  TextStyle(letterSpacing: 4.0, fontWeight: FontWeight.bold),
             ),
           ),
+          backgroundColor: HexColor("#8FB9A8"),
         ),
-        position:
-            i % 2 == 0 ? TimelineItemPosition.right : TimelineItemPosition.left,
-        isFirst: i == 0,
-        isLast: i == cards.length,
-        iconBackground: CardData.iconBackground,
-        icon: CardData.icon);
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: HexColor("#8FB9A8"),
+          child: const Icon(
+            Icons.add,
+            color: Colors.white,
+          ),
+          onPressed: () {},
+        ),
+        bottomNavigationBar: BottomAppBar(
+            shape: CircularNotchedRectangle(),
+            notchMargin: 5.0,
+            child: new Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                IconButton(
+                  icon: Icon(Icons.menu),
+                  onPressed: () {},
+                ),
+                IconButton(
+                  icon: Icon(Icons.person),
+                  onPressed: () {},
+                ),
+              ],
+            )),
+        body: new ListView.builder(
+          itemBuilder: (BuildContext context, int index) {
+            return new Stack(
+              children: <Widget>[
+                new Padding(
+                  padding: const EdgeInsets.only(left: 50.0),
+                  child: new Card(
+                    margin: new EdgeInsets.all(20.0),
+                    child: new Container(
+                      child: Column(
+                        children: <Widget>[
+                          Text(
+                            'Date',
+                            style: GoogleFonts.pacifico(
+                              textStyle: TextStyle(
+                                letterSpacing: 2.0,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                          Text(
+                            'Date',
+                            style: GoogleFonts.pacifico(
+                              textStyle: TextStyle(
+                                letterSpacing: 2.0,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      width: double.infinity,
+                      height: 100.0,
+                      decoration: new BoxDecoration(
+                        borderRadius: BorderRadius.circular(5.0),
+                        color: HexColor('#F1828D'),
+                      ),
+                    ),
+                    color: HexColor("#FCD0BA"),
+                    elevation: 6.0,
+                  ),
+                ),
+                new Positioned(
+                  top: 2.5,
+                  left: 15.0,
+                  child: new Container(
+                    height: 10.0,
+                    width: 40.0,
+                    decoration: new BoxDecoration(
+                      shape: BoxShape.rectangle,
+                      color: Colors.white,
+                    ),
+                    child: new Container(
+//                      margin: new EdgeInsets.all(5.0),
+                      height: 1.0,
+                      width: 1.0,
+                      decoration: new BoxDecoration(
+                          shape: BoxShape.rectangle, color: Colors.grey),
+                    ),
+                  ),
+                ),
+                new Positioned(
+                  top: 20.0,
+                  left: 15.0,
+                  child: new Container(
+                    height: 10.0,
+                    width: 40.0,
+                    decoration: new BoxDecoration(
+                      shape: BoxShape.rectangle,
+                      color: Colors.white,
+                    ),
+                    child: new Container(
+//                      margin: new EdgeInsets.all(5.0),
+                      height: 1.0,
+                      width: 1.0,
+                      decoration: new BoxDecoration(
+                          shape: BoxShape.rectangle, color: Colors.grey),
+                    ),
+                  ),
+                ),
+                new Positioned(
+                  top: 105.0,
+                  left: 15.0,
+                  child: new Container(
+                    height: 10.0,
+                    width: 40.0,
+                    decoration: new BoxDecoration(
+                      shape: BoxShape.rectangle,
+                      color: Colors.white,
+                    ),
+                    child: new Container(
+//                      margin: new EdgeInsets.all(5.0),
+                      height: 1.0,
+                      width: 1.0,
+                      decoration: new BoxDecoration(
+                          shape: BoxShape.rectangle, color: Colors.grey),
+                    ),
+                  ),
+                ),
+                new Positioned(
+                  top: 122.5,
+                  left: 15.0,
+                  child: new Container(
+                    height: 10.0,
+                    width: 40.0,
+                    decoration: new BoxDecoration(
+                      shape: BoxShape.rectangle,
+                      color: Colors.white,
+                    ),
+                    child: new Container(
+//                      margin: new EdgeInsets.all(5.0),
+                      height: 1.0,
+                      width: 1.0,
+                      decoration: new BoxDecoration(
+                          shape: BoxShape.rectangle, color: Colors.grey),
+                    ),
+                  ),
+                ),
+                new Positioned(
+                  top: 0.0,
+                  bottom: 0.0,
+                  left: 24.0,
+                  child: new Container(
+                    height: double.infinity,
+                    width: 2.0,
+                    color: Colors.grey[850],
+                  ),
+                ),
+                new Positioned(
+                  top: 0.0,
+                  bottom: 0.0,
+                  left: 44.0,
+                  child: new Container(
+                    height: double.infinity,
+                    width: 2.0,
+                    color: Colors.grey[850],
+                  ),
+                ),
+                new Positioned(
+                  top: 50.0,
+                  left: 15.0,
+                  child: new Container(
+                    height: 40.0,
+                    width: 40.0,
+                    decoration: new BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.black,
+                    ),
+                    child: new Container(
+                      height: 20.0,
+                      width: 20.0,
+                      decoration: new BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: HexColor('#FEFAD4'),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
+          itemCount: 10,
+        ));
   }
 }
