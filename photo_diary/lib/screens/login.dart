@@ -9,7 +9,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:photo_diary/components/delayed_animation.dart';
-import 'package:photo_diary/router.dart';
 import 'package:photo_diary/utils/hexColor.dart';
 import 'package:photo_diary/utils/userData.dart';
 

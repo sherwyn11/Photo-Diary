@@ -32,9 +32,7 @@ class _TimelinePageState extends State<TimelinePage> {
             Icons.add,
             color: Colors.white,
           ),
-          onPressed: () {
-            Navigator.pushNamed(context, 'diary');
-          },
+          onPressed: () {},
         ),
         bottomNavigationBar: BottomAppBar(
             shape: CircularNotchedRectangle(),
@@ -59,40 +57,45 @@ class _TimelinePageState extends State<TimelinePage> {
               children: <Widget>[
                 new Padding(
                   padding: const EdgeInsets.only(left: 50.0),
-                  child: new Card(
-                    margin: new EdgeInsets.all(20.0),
-                    child: new Container(
-                      child: Column(
-                        children: <Widget>[
-                          Text(
-                            'Date',
-                            style: GoogleFonts.pacifico(
-                              textStyle: TextStyle(
-                                letterSpacing: 2.0,
-                                color: Colors.white,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, 'diary');
+                    },
+                    child: new Card(
+                      margin: new EdgeInsets.all(20.0),
+                      child: new Container(
+                        child: Column(
+                          children: <Widget>[
+                            Text(
+                              'Date',
+                              style: GoogleFonts.pacifico(
+                                textStyle: TextStyle(
+                                  letterSpacing: 2.0,
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
-                          ),
-                          Text(
-                            'Date',
-                            style: GoogleFonts.pacifico(
-                              textStyle: TextStyle(
-                                letterSpacing: 2.0,
-                                color: Colors.white,
+                            Text(
+                              'Date',
+                              style: GoogleFonts.pacifico(
+                                textStyle: TextStyle(
+                                  letterSpacing: 2.0,
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
+                        width: double.infinity,
+                        height: 100.0,
+                        decoration: new BoxDecoration(
+                          borderRadius: BorderRadius.circular(5.0),
+                          color: HexColor('#F1828D'),
+                        ),
                       ),
-                      width: double.infinity,
-                      height: 100.0,
-                      decoration: new BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.0),
-                        color: HexColor('#F1828D'),
-                      ),
+                      color: HexColor("#FCD0BA"),
+                      elevation: 6.0,
                     ),
-                    color: HexColor("#FCD0BA"),
-                    elevation: 6.0,
                   ),
                 ),
                 new Positioned(
