@@ -32,6 +32,7 @@ dependencies:
   cloud_firestore:
   google_sign_in:
   timeline_list:
+  modal_progress_hud:
 
   flutter:
     sdk: flutter

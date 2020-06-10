@@ -11,6 +11,7 @@ class PhotoDiary extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'My Photo Diary',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),

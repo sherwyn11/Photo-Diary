@@ -1,5 +1,6 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:photo_diary/screens/diary.dart';
 import 'package:photo_diary/screens/login.dart';
 import 'package:photo_diary/screens/timeline.dart';
 
@@ -16,11 +17,19 @@ class FluroRouter {
     return TimelinePage();
   });
 
+  static var diaryHandler =
+      Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+    return Diary();
+  });
+
   static handleRoutes() {
     router.define('login',
         handler: loginHandler, transitionType: TransitionType.cupertino);
 
     router.define('timeline',
         handler: timelineHandler, transitionType: TransitionType.fadeIn);
+
+    router.define('diary',
+        handler: diaryHandler, transitionType: TransitionType.fadeIn);
   }
 }

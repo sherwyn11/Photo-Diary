@@ -32,7 +32,9 @@ class _TimelinePageState extends State<TimelinePage> {
             Icons.add,
             color: Colors.white,
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, 'diary');
+          },
         ),
         bottomNavigationBar: BottomAppBar(
             shape: CircularNotchedRectangle(),
