@@ -19,7 +19,7 @@ class FluroRouter {
 
   static var diaryHandler =
       Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
-    return Diary();
+    return DiaryPage();
   });
 
   static handleRoutes() {
