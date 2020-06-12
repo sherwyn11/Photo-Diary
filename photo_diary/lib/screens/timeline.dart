@@ -1,6 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:photo_diary/components/ballast.dart';
+import 'package:photo_diary/components/bottomAppBarCustom.dart';
+import 'package:photo_diary/components/rails.dart';
+import 'package:photo_diary/components/stations.dart';
+import 'package:photo_diary/utils/databaseWork.dart';
+import 'package:photo_diary/utils/getDate.dart';
 import 'package:photo_diary/utils/hexColor.dart';
+
+import 'diary.dart';
 
 class TimelinePage extends StatefulWidget {
   TimelinePage({Key key, this.title}) : super(key: key);
@@ -11,8 +20,22 @@ class TimelinePage extends StatefulWidget {
 }
 
 class _TimelinePageState extends State<TimelinePage> {
+  String otherEmail = 'darlenenazareth1999@gmail.com';
+  bool loading = false;
+  Firestore _db = Firestore.instance;
+  String uid = "";
+
+  void getUID() async {
+    uid = await Db().getCurrentUserUID();
+    this.setState(() {
+      loading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    getUID();
+
     return Scaffold(
       backgroundColor: HexColor("#FCD0BA"),
       appBar: AppBar(
@@ -36,190 +59,95 @@ class _TimelinePageState extends State<TimelinePage> {
         ),
         onPressed: () {},
       ),
-      bottomNavigationBar: BottomAppBar(
-          shape: CircularNotchedRectangle(),
-          notchMargin: 5.0,
-          child: new Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              IconButton(
-                icon: Icon(Icons.menu),
-                onPressed: () {},
-              ),
-              IconButton(
-                icon: Icon(Icons.person),
-                onPressed: () {},
-              ),
-            ],
-          )),
-      body: new ListView.builder(
-        itemBuilder: (BuildContext context, int index) {
-          return new Stack(
-            children: <Widget>[
-              new Padding(
-                padding: const EdgeInsets.only(left: 50.0),
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, 'diary');
-                  },
-                  child: new Card(
-                    margin: new EdgeInsets.all(20.0),
-                    child: new Container(
-                      child: Column(
-                        children: <Widget>[
-                          Text(
-                            'Date',
-                            style: GoogleFonts.pacifico(
-                              textStyle: TextStyle(
-                                letterSpacing: 2.0,
-                                color: Colors.white,
-                              ),
+      bottomNavigationBar: MyBottomAppBar(),
+      body: StreamBuilder<QuerySnapshot>(
+        stream: _db
+            .collection('users')
+            .document(uid)
+            .collection(otherEmail)
+            .snapshots(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            this.setState(() {
+              loading = true;
+            });
+          }
+          final dateSnapshot = snapshot.data.documents;
+          List<String> dates = [];
+          List<String> texts = [];
+          for (var datefinal in dateSnapshot) {
+            dates.add(datefinal.documentID);
+            texts.add(datefinal.data['text']);
+          }
+          print(dates);
+          return ListView.builder(
+            itemBuilder: (BuildContext context, int index) {
+              return new Stack(
+                children: <Widget>[
+                  new Padding(
+                    padding: const EdgeInsets.only(left: 50.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DiaryPage(
+                              date: dates[index],
+                              text: texts[index],
                             ),
                           ),
-                          Text(
-                            'Date',
-                            style: GoogleFonts.pacifico(
-                              textStyle: TextStyle(
-                                letterSpacing: 2.0,
-                                color: Colors.white,
+                        );
+                      },
+                      child: new Card(
+                        margin: new EdgeInsets.all(20.0),
+                        child: new Container(
+                          child: Column(
+                            children: <Widget>[
+                              Text(
+                                'Date',
+                                style: GoogleFonts.pacifico(
+                                  textStyle: TextStyle(
+                                    letterSpacing: 2.0,
+                                    color: Colors.white,
+                                  ),
+                                ),
                               ),
-                            ),
+                              Text(
+                                dates[index],
+                                style: GoogleFonts.pacifico(
+                                  textStyle: TextStyle(
+                                    letterSpacing: 2.0,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                      width: double.infinity,
-                      height: 100.0,
-                      decoration: new BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.0),
-                        color: HexColor('#F1828D'),
+                          width: double.infinity,
+                          height: 100.0,
+                          decoration: new BoxDecoration(
+                            borderRadius: BorderRadius.circular(5.0),
+                            color: HexColor('#F1828D'),
+                          ),
+                        ),
+                        color: HexColor("#FCD0BA"),
+                        elevation: 6.0,
                       ),
                     ),
-                    color: HexColor("#FCD0BA"),
-                    elevation: 6.0,
                   ),
-                ),
-              ),
-              new Positioned(
-                top: 2.5,
-                left: 15.0,
-                child: new Container(
-                  height: 10.0,
-                  width: 40.0,
-                  decoration: new BoxDecoration(
-                    shape: BoxShape.rectangle,
-                    color: Colors.white,
-                  ),
-                  child: new Container(
-//                      margin: new EdgeInsets.all(5.0),
-                    height: 1.0,
-                    width: 1.0,
-                    decoration: new BoxDecoration(
-                        shape: BoxShape.rectangle, color: Colors.grey),
-                  ),
-                ),
-              ),
-              new Positioned(
-                top: 20.0,
-                left: 15.0,
-                child: new Container(
-                  height: 10.0,
-                  width: 40.0,
-                  decoration: new BoxDecoration(
-                    shape: BoxShape.rectangle,
-                    color: Colors.white,
-                  ),
-                  child: new Container(
-//                      margin: new EdgeInsets.all(5.0),
-                    height: 1.0,
-                    width: 1.0,
-                    decoration: new BoxDecoration(
-                        shape: BoxShape.rectangle, color: Colors.grey),
-                  ),
-                ),
-              ),
-              new Positioned(
-                top: 105.0,
-                left: 15.0,
-                child: new Container(
-                  height: 10.0,
-                  width: 40.0,
-                  decoration: new BoxDecoration(
-                    shape: BoxShape.rectangle,
-                    color: Colors.white,
-                  ),
-                  child: new Container(
-//                      margin: new EdgeInsets.all(5.0),
-                    height: 1.0,
-                    width: 1.0,
-                    decoration: new BoxDecoration(
-                        shape: BoxShape.rectangle, color: Colors.grey),
-                  ),
-                ),
-              ),
-              new Positioned(
-                top: 122.5,
-                left: 15.0,
-                child: new Container(
-                  height: 10.0,
-                  width: 40.0,
-                  decoration: new BoxDecoration(
-                    shape: BoxShape.rectangle,
-                    color: Colors.white,
-                  ),
-                  child: new Container(
-//                      margin: new EdgeInsets.all(5.0),
-                    height: 1.0,
-                    width: 1.0,
-                    decoration: new BoxDecoration(
-                        shape: BoxShape.rectangle, color: Colors.grey),
-                  ),
-                ),
-              ),
-              new Positioned(
-                top: 0.0,
-                bottom: 0.0,
-                left: 24.0,
-                child: new Container(
-                  height: double.infinity,
-                  width: 2.0,
-                  color: Colors.grey[850],
-                ),
-              ),
-              new Positioned(
-                top: 0.0,
-                bottom: 0.0,
-                left: 44.0,
-                child: new Container(
-                  height: double.infinity,
-                  width: 2.0,
-                  color: Colors.grey[850],
-                ),
-              ),
-              new Positioned(
-                top: 50.0,
-                left: 15.0,
-                child: new Container(
-                  height: 40.0,
-                  width: 40.0,
-                  decoration: new BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.black,
-                  ),
-                  child: new Container(
-                    height: 20.0,
-                    width: 20.0,
-                    decoration: new BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: HexColor('#FEFAD4'),
-                    ),
-                  ),
-                ),
-              ),
-            ],
+                  Ballast(top: 2.5, left: 15),
+                  Ballast(top: 20, left: 15),
+                  Ballast(top: 105, left: 15),
+                  Ballast(top: 122.5, left: 15),
+                  Rails(top: 0, bottom: 0.0, left: 24, right: 0),
+                  Rails(top: 0, bottom: 0.0, left: 44, right: 0),
+                  Station(),
+                ],
+              );
+            },
+            itemCount: dates.length,
           );
         },
-        itemCount: 10,
       ),
     );
   }

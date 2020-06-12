@@ -30,6 +30,7 @@ dependencies:
   firebase_analytics:
   firebase_auth:
   cloud_firestore:
+  firebase_storage:
   google_sign_in:
   timeline_list:
   modal_progress_hud:

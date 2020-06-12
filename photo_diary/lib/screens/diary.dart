@@ -1,31 +1,33 @@
 import 'dart:io';
 import 'dart:ui';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:photo_diary/components/tape.dart';
+import 'package:photo_diary/utils/databaseWork.dart';
 import 'package:photo_diary/utils/hexColor.dart';
 
 import '../utils/hexColor.dart';
 
 class DiaryPage extends StatefulWidget {
-  DiaryPage({Key key, this.title}) : super(key: key);
-  final String title;
+  DiaryPage({Key key, this.date, this.text}) : super(key: key);
+  String date;
+  String text;
 
   @override
   _DiaryPageState createState() => _DiaryPageState();
 }
 
 class _DiaryPageState extends State<DiaryPage> {
-  Future<FirebaseUser> _user = FirebaseAuth.instance.currentUser();
   final ImagePicker _picker = ImagePicker();
+  final _textEditingController = TextEditingController();
   File _image;
   bool uploaded = false;
-  String _text = 'Write something here';
-  final _textEditingController = TextEditingController();
+  String _text;
+  String otherEmail = 'darlenenazareth1999@gmail.com';
+  String dateFinal;
 
   Future<bool> getImage() async {
     final pickedFile = await _picker.getImage(source: ImageSource.gallery);
@@ -34,21 +36,33 @@ class _DiaryPageState extends State<DiaryPage> {
       _image = File(pickedFile.path);
       uploaded = true;
     });
+
+    String uid = await Db().getCurrentUserUID();
+    await Db().storeImage(uid, otherEmail, _image, dateFinal);
+
     return true;
   }
 
-//  sFEUzQdwWLa2lDxablsM0TUXMqs2
+//  uid = sFEUzQdwWLa2lDxablsM0TUXMqs2
 
   Future<bool> updateText() async {
-    _user.then((value) => print('Here ' + value.uid));
+    String uid = await Db().getCurrentUserUID();
     setState(() {
       _text = _textEditingController.text;
     });
+
+    widget.text = _text;
+
+    await Db().addData(uid, otherEmail, dateFinal, _text);
+
     return true;
   }
 
   @override
   Widget build(BuildContext context) {
+    _text = widget.text;
+    dateFinal = widget.date;
+
     return new Scaffold(
       backgroundColor: HexColor("#FCD0BA"),
       appBar: AppBar(
@@ -87,8 +101,10 @@ class _DiaryPageState extends State<DiaryPage> {
                             onPressed: () async {
                               final fileUploaded = await getImage();
                               if (fileUploaded) {
-                                Navigator.of(context, rootNavigator: true)
-                                    .pop('dialog');
+                                Navigator.of(
+                                  context,
+                                  rootNavigator: true,
+                                ).pop('dialog');
                               }
                             },
                             child: Row(
@@ -101,7 +117,9 @@ class _DiaryPageState extends State<DiaryPage> {
                                       textStyle: TextStyle(
                                           letterSpacing: 1.0, fontSize: 18.0)),
                                 ),
-                                Icon(Icons.cloud_upload),
+                                Icon(
+                                  Icons.cloud_upload,
+                                ),
                               ],
                             ),
                             color: HexColor('#8FB9A8'),
@@ -136,7 +154,7 @@ class _DiaryPageState extends State<DiaryPage> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                'Date: ',
+                'Date: ' + dateFinal,
                 style: GoogleFonts.pacifico(
                   textStyle: TextStyle(
                       fontSize: 20,
