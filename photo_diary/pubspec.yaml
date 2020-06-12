@@ -33,6 +33,7 @@ dependencies:
   google_sign_in:
   timeline_list:
   modal_progress_hud:
+  image_picker: ^0.6.7+1
 
   flutter:
     sdk: flutter

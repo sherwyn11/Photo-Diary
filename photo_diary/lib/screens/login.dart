@@ -66,10 +66,10 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
     return ModalProgressHUD(
       inAsyncCall: loading,
       progressIndicator: CircularProgressIndicator(),
-      color: HexColor('#F1828D'),
+      color: HexColor('#FCD0BA'),
       child: Builder(
         builder: (context) => Scaffold(
-          backgroundColor: HexColor('#8FB9A8'),
+          backgroundColor: HexColor('#FCD0BA'),
           body: Center(
             child: Padding(
               padding: EdgeInsets.all(8.0),

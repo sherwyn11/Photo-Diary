@@ -1,8 +1,10 @@
-import 'dart:math';
+import 'dart:io';
 import 'dart:ui';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:photo_diary/components/tape.dart';
 import 'package:photo_diary/utils/hexColor.dart';
@@ -18,6 +20,33 @@ class DiaryPage extends StatefulWidget {
 }
 
 class _DiaryPageState extends State<DiaryPage> {
+  Future<FirebaseUser> _user = FirebaseAuth.instance.currentUser();
+  final ImagePicker _picker = ImagePicker();
+  File _image;
+  bool uploaded = false;
+  String _text = 'Write something here';
+  final _textEditingController = TextEditingController();
+
+  Future<bool> getImage() async {
+    final pickedFile = await _picker.getImage(source: ImageSource.gallery);
+
+    setState(() {
+      _image = File(pickedFile.path);
+      uploaded = true;
+    });
+    return true;
+  }
+
+//  sFEUzQdwWLa2lDxablsM0TUXMqs2
+
+  Future<bool> updateText() async {
+    _user.then((value) => print('Here ' + value.uid));
+    setState(() {
+      _text = _textEditingController.text;
+    });
+    return true;
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -41,14 +70,57 @@ class _DiaryPageState extends State<DiaryPage> {
             Stack(
               children: <Widget>[
                 Card(
-                  child: Container(
-                    height: 400.0,
-                    width: MediaQuery.of(context).size.width,
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(7.0, 20.0, 7.0, 96.0),
-                      child: Image.network(
-                        'https://cdn.pastemagazine.com/www/articles/2020/04/23/the1975againagainmain.jpg',
-                        fit: BoxFit.fill,
+                  child: GestureDetector(
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        child: new AlertDialog(
+                          title: Center(
+                            child: new Text(
+                              "Upload a new image",
+                              style: GoogleFonts.pacifico(
+                                  textStyle: TextStyle(
+                                      letterSpacing: 1.0, fontSize: 20.0)),
+                            ),
+                          ),
+                          content: RaisedButton(
+                            onPressed: () async {
+                              final fileUploaded = await getImage();
+                              if (fileUploaded) {
+                                Navigator.of(context, rootNavigator: true)
+                                    .pop('dialog');
+                              }
+                            },
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: <Widget>[
+                                Text(
+                                  'Click Here',
+                                  style: GoogleFonts.pacifico(
+                                      textStyle: TextStyle(
+                                          letterSpacing: 1.0, fontSize: 18.0)),
+                                ),
+                                Icon(Icons.cloud_upload),
+                              ],
+                            ),
+                            color: HexColor('#8FB9A8'),
+                          ),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      height: 400.0,
+                      width: MediaQuery.of(context).size.width,
+                      child: Padding(
+                        padding:
+                            const EdgeInsets.fromLTRB(7.0, 20.0, 7.0, 96.0),
+                        child: uploaded
+                            ? Image.file(_image)
+                            : Image.network(
+                                'https://cdn.pastemagazine.com/www/articles/2020/04/23/the1975againagainmain.jpg',
+                                fit: BoxFit.fill,
+                              ),
                       ),
                     ),
                   ),
@@ -67,9 +139,9 @@ class _DiaryPageState extends State<DiaryPage> {
                 'Date: ',
                 style: GoogleFonts.pacifico(
                   textStyle: TextStyle(
-                    fontSize: 20,
-                    letterSpacing: 1.0,
-                  ),
+                      fontSize: 20,
+                      letterSpacing: 1.0,
+                      decoration: TextDecoration.underline),
                 ),
               ),
             ),
@@ -79,6 +151,7 @@ class _DiaryPageState extends State<DiaryPage> {
                 'Dear Diary, ',
                 style: GoogleFonts.pacifico(
                   textStyle: TextStyle(
+                    decoration: TextDecoration.underline,
                     fontSize: 20,
                     letterSpacing: 1.0,
                   ),
@@ -87,12 +160,77 @@ class _DiaryPageState extends State<DiaryPage> {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'The oldest classical Greek and Latin writing had little or no space between words and could be written in boustrophedon (alternating directions). Over time, text direction (left to right) became standardized, and word dividers and terminal punctuation became common. The first way to divide sentences into groups was the original [[paragraphos|parágraphos]], similar to an underscore at the beginning of the new group.[2] The Greek parágraphos evolved into the pilcrow (¶), which in English manuscripts in the Middle Ages can be seen inserted inline between sentences. The hedera leaf (e.g. ☙) has also been used in the same way.',
-                style: GoogleFonts.pacifico(
-                  textStyle: TextStyle(
-                    fontSize: 20,
-                    letterSpacing: 1.0,
+              child: GestureDetector(
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    child: new AlertDialog(
+                      scrollable: true,
+                      title: Center(
+                        child: new Text(
+                          "Write something...",
+                          style: GoogleFonts.pacifico(
+                              textStyle: TextStyle(
+                                  letterSpacing: 1.0, fontSize: 20.0)),
+                        ),
+                      ),
+                      content: Container(
+                        height: MediaQuery.of(context).size.height / 2,
+                        width: MediaQuery.of(context).size.width / 2,
+                        child: Center(
+                          child: Column(
+                            children: <Widget>[
+                              TextFormField(
+                                cursorColor: HexColor('#8FB9A8'),
+                                maxLines: 10,
+                                keyboardType: TextInputType.multiline,
+                                controller: _textEditingController
+                                  ..text = _text,
+                                textCapitalization:
+                                    TextCapitalization.sentences,
+                              ),
+                              SizedBox(
+                                height: 10.0,
+                              ),
+                              RaisedButton(
+                                color: HexColor('#8FB9A8'),
+                                onPressed: () async {
+                                  if (await updateText()) {
+                                    Navigator.of(context, rootNavigator: true)
+                                        .pop('dialog');
+                                  }
+                                },
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: <Widget>[
+                                    Text(
+                                      'Update my Diary',
+                                      style: GoogleFonts.pacifico(
+                                        textStyle: TextStyle(
+                                            letterSpacing: 1.0, fontSize: 18.0),
+                                      ),
+                                    ),
+                                    Icon(Icons.cloud_upload),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+                child: Text(
+                  _text,
+                  style: GoogleFonts.pacifico(
+                    textStyle: TextStyle(
+                      decoration: TextDecoration.underline,
+                      fontSize: 20,
+                      letterSpacing: 1.0,
+                    ),
                   ),
                 ),
               ),
