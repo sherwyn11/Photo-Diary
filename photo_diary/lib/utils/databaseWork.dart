@@ -30,24 +30,40 @@ class Db {
     return email;
   }
 
-  Future<bool> addData(
-      String uid, String otherEmail, String date, String text) async {
+  Future<bool> addData(String uid, String otherEmail, String date, String url,
+      String text) async {
     await _db
         .collection('users')
         .document(uid)
         .collection(otherEmail)
         .document(date.toString())
-        .setData({'text': text});
+        .setData({'image_url': url, 'text': text});
 
     return true;
   }
 
-  Future<bool> storeImage(
+  Future<bool> addURL(String uid, String otherEmail, String date, String url,
+      String text) async {
+    await _db
+        .collection('users')
+        .document(uid)
+        .collection(otherEmail)
+        .document(date.toString())
+        .setData({'image_url': url, 'text': text});
+
+    return true;
+  }
+
+  Future<String> storeImage(
       String uid, String otherEmail, File image, String date) async {
     String ext = image.path.split('/').last.split('.').last;
     String filePath = uid + '/' + otherEmail + '/' + date + '.' + ext;
-    firebaseStorage.ref().child(filePath).putFile(image);
-    return true;
+    StorageUploadTask uploadTask =
+        firebaseStorage.ref().child(filePath).putFile(image);
+    var dowurl = await (await uploadTask.onComplete).ref.getDownloadURL();
+    String url = dowurl.toString();
+    print(url);
+    return url;
   }
 
   Future<Stream<QuerySnapshot>> getTimelineData(String otherEmail) async {

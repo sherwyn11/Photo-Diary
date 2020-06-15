@@ -57,7 +57,18 @@ class _TimelinePageState extends State<TimelinePage> {
           Icons.add,
           color: Colors.white,
         ),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => DiaryPage(
+                date: GetDate().getCurrentDate(),
+                text: 'Write something here...',
+                imageUrl: null,
+              ),
+            ),
+          );
+        },
       ),
       bottomNavigationBar: MyBottomAppBar(),
       body: StreamBuilder<QuerySnapshot>(
@@ -75,9 +86,11 @@ class _TimelinePageState extends State<TimelinePage> {
           final dateSnapshot = snapshot.data.documents;
           List<String> dates = [];
           List<String> texts = [];
+          List<String> imageURLS = [];
           for (var datefinal in dateSnapshot) {
             dates.add(datefinal.documentID);
             texts.add(datefinal.data['text']);
+            imageURLS.add(datefinal.data['image_url']);
           }
           print(dates);
           return ListView.builder(
@@ -94,6 +107,7 @@ class _TimelinePageState extends State<TimelinePage> {
                             builder: (context) => DiaryPage(
                               date: dates[index],
                               text: texts[index],
+                              imageUrl: imageURLS[index],
                             ),
                           ),
                         );

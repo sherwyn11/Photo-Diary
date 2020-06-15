@@ -12,9 +12,10 @@ import 'package:photo_diary/utils/hexColor.dart';
 import '../utils/hexColor.dart';
 
 class DiaryPage extends StatefulWidget {
-  DiaryPage({Key key, this.date, this.text}) : super(key: key);
+  DiaryPage({Key key, this.date, this.text, this.imageUrl}) : super(key: key);
   String date;
   String text;
+  String imageUrl;
 
   @override
   _DiaryPageState createState() => _DiaryPageState();
@@ -28,6 +29,8 @@ class _DiaryPageState extends State<DiaryPage> {
   String _text;
   String otherEmail = 'darlenenazareth1999@gmail.com';
   String dateFinal;
+  String url =
+      'https://cdn.pastemagazine.com/www/articles/2020/04/23/the1975againagainmain.jpg';
 
   Future<bool> getImage() async {
     final pickedFile = await _picker.getImage(source: ImageSource.gallery);
@@ -38,12 +41,10 @@ class _DiaryPageState extends State<DiaryPage> {
     });
 
     String uid = await Db().getCurrentUserUID();
-    await Db().storeImage(uid, otherEmail, _image, dateFinal);
-
+    url = await Db().storeImage(uid, otherEmail, _image, dateFinal);
+    await Db().addURL(uid, otherEmail, dateFinal, url, _text);
     return true;
   }
-
-//  uid = sFEUzQdwWLa2lDxablsM0TUXMqs2
 
   Future<bool> updateText() async {
     String uid = await Db().getCurrentUserUID();
@@ -53,7 +54,7 @@ class _DiaryPageState extends State<DiaryPage> {
 
     widget.text = _text;
 
-    await Db().addData(uid, otherEmail, dateFinal, _text);
+    await Db().addData(uid, otherEmail, dateFinal, url, _text);
 
     return true;
   }
@@ -62,7 +63,9 @@ class _DiaryPageState extends State<DiaryPage> {
   Widget build(BuildContext context) {
     _text = widget.text;
     dateFinal = widget.date;
-
+    if (widget.imageUrl != null) {
+      url = widget.imageUrl;
+    }
     return new Scaffold(
       backgroundColor: HexColor("#FCD0BA"),
       appBar: AppBar(
@@ -136,7 +139,7 @@ class _DiaryPageState extends State<DiaryPage> {
                         child: uploaded
                             ? Image.file(_image)
                             : Image.network(
-                                'https://cdn.pastemagazine.com/www/articles/2020/04/23/the1975againagainmain.jpg',
+                                url,
                                 fit: BoxFit.fill,
                               ),
                       ),
