@@ -140,7 +140,7 @@ class _DiaryPageState extends State<DiaryPage> {
                             ? Image.file(_image)
                             : Image.network(
                                 url,
-                                fit: BoxFit.fill,
+                                fit: BoxFit.cover,
                               ),
                       ),
                     ),
@@ -160,9 +160,10 @@ class _DiaryPageState extends State<DiaryPage> {
                 'Date: ' + dateFinal,
                 style: GoogleFonts.pacifico(
                   textStyle: TextStyle(
-                      fontSize: 20,
-                      letterSpacing: 1.0,
-                      decoration: TextDecoration.underline),
+                    fontSize: 20,
+                    letterSpacing: 1.0,
+                    decoration: TextDecoration.underline,
+                  ),
                 ),
               ),
             ),
