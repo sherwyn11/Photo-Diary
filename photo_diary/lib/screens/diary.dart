@@ -96,8 +96,11 @@ class _DiaryPageState extends State<DiaryPage> {
                             child: new Text(
                               "Upload a new image",
                               style: GoogleFonts.pacifico(
-                                  textStyle: TextStyle(
-                                      letterSpacing: 1.0, fontSize: 20.0)),
+                                textStyle: TextStyle(
+                                  letterSpacing: 1.0,
+                                  fontSize: 20.0,
+                                ),
+                              ),
                             ),
                           ),
                           content: RaisedButton(

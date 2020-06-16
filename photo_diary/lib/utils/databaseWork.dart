@@ -1,3 +1,5 @@
+import 'dart:async';
+import 'dart:core';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -73,5 +75,15 @@ class Db {
         .document(uid)
         .collection(otherEmail)
         .snapshots();
+  }
+
+  Future<List> getFriendData(String uid) async {
+    print(uid);
+    var friends = await _db.collection('users').document(uid).get();
+    List<String> friendList = [];
+    for (var friend in friends.data['friends']) {
+      friendList.add(friend);
+    }
+    return friendList;
   }
 }

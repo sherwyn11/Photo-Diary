@@ -5,6 +5,7 @@ import 'package:photo_diary/components/ballast.dart';
 import 'package:photo_diary/components/bottomAppBarCustom.dart';
 import 'package:photo_diary/components/rails.dart';
 import 'package:photo_diary/components/stations.dart';
+import 'package:photo_diary/utils/consts.dart';
 import 'package:photo_diary/utils/databaseWork.dart';
 import 'package:photo_diary/utils/getDate.dart';
 import 'package:photo_diary/utils/hexColor.dart';
@@ -27,6 +28,7 @@ class _TimelinePageState extends State<TimelinePage> {
 
   void getUID() async {
     uid = await Db().getCurrentUserUID();
+    uidConst = uid;
     this.setState(() {
       loading = false;
     });
