@@ -92,7 +92,9 @@ class _TimelinePageState extends State<TimelinePage> {
             texts.add(datefinal.data['text']);
             imageURLS.add(datefinal.data['image_url']);
           }
-          print(dates);
+          dates = dates.reversed.toList();
+          texts = texts.reversed.toList();
+          imageURLS = imageURLS.reversed.toList();
           return ListView.builder(
             itemBuilder: (BuildContext context, int index) {
               return new Stack(
