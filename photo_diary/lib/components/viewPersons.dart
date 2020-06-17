@@ -2,14 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:photo_diary/components/newFriendAdd.dart';
 import 'package:photo_diary/utils/consts.dart';
+import 'package:photo_diary/utils/databaseWork.dart';
 import 'package:photo_diary/utils/hexColor.dart';
 
-class FriendsDialog extends StatelessWidget {
-  final List dataVal;
+class FriendsDialog extends StatefulWidget {
+  FriendsDialog({Key key, this.dataVal}) : super(key: key);
+  List<String> dataVal;
 
-  FriendsDialog({
-    @required this.dataVal,
-  });
+  @override
+  _FriendsState createState() => _FriendsState();
+}
+
+class _FriendsState extends State<FriendsDialog> {
+  void getFriendList() async {
+    widget.dataVal = await Db().getFriendData(uidConst);
+  }
 
   dialogContent(BuildContext context) {
     return Stack(
@@ -52,7 +59,8 @@ class FriendsDialog extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () {
-                        print(dataVal[index]);
+                        print(widget.dataVal[index]);
+                        otherEmailConst = widget.dataVal[index];
                         Navigator.pop(context, index);
                       },
                       child: Column(
@@ -69,7 +77,7 @@ class FriendsDialog extends StatelessWidget {
                                     padding: const EdgeInsets.fromLTRB(
                                         12.0, 12.0, 12.0, 6.0),
                                     child: Text(
-                                      dataVal[index],
+                                      widget.dataVal[index],
                                       style: GoogleFonts.pacifico(
                                           textStyle: TextStyle(
                                         letterSpacing: 1.0,
@@ -89,7 +97,7 @@ class FriendsDialog extends StatelessWidget {
                       ),
                     );
                   },
-                  itemCount: dataVal.length,
+                  itemCount: widget.dataVal.length,
                 ),
               ),
               FloatingActionButton(
@@ -114,6 +122,7 @@ class FriendsDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    getFriendList();
     return Dialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(Consts.padding),

@@ -27,7 +27,7 @@ class _TimelinePageState extends State<TimelinePage> {
   String uid = "";
 
   void getUID() async {
-    uid = await Db().getCurrentUserUID();
+    uid = await Db().getCurrentUserEmail();
     uidConst = uid;
     this.setState(() {
       loading = false;
@@ -77,7 +77,7 @@ class _TimelinePageState extends State<TimelinePage> {
         stream: _db
             .collection('users')
             .document(uid)
-            .collection(otherEmail)
+            .collection(otherEmailConst)
             .snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
@@ -120,9 +120,11 @@ class _TimelinePageState extends State<TimelinePage> {
                         margin: new EdgeInsets.all(20.0),
                         child: new Container(
                           child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
                               Text(
-                                'Date',
+                                'Date:',
                                 style: GoogleFonts.pacifico(
                                   textStyle: TextStyle(
                                     letterSpacing: 2.0,

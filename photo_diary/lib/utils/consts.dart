@@ -6,3 +6,4 @@ class Consts {
 }
 
 String uidConst = "";
+String otherEmailConst = "darlenenazareth1999@gmail.com";

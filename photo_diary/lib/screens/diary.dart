@@ -40,14 +40,14 @@ class _DiaryPageState extends State<DiaryPage> {
       uploaded = true;
     });
 
-    String uid = await Db().getCurrentUserUID();
+    String uid = await Db().getCurrentUserEmail();
     url = await Db().storeImage(uid, otherEmail, _image, dateFinal);
     await Db().addURL(uid, otherEmail, dateFinal, url, _text);
     return true;
   }
 
   Future<bool> updateText() async {
-    String uid = await Db().getCurrentUserUID();
+    String uid = await Db().getCurrentUserEmail();
     setState(() {
       _text = _textEditingController.text;
     });

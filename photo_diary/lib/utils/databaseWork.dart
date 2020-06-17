@@ -14,11 +14,9 @@ class Db {
 
   Future<String> getCurrentUserUID() async {
     String uid;
-
     await _user.then((value) {
       uid = value.uid;
     });
-
     return uid;
   }
 
@@ -78,12 +76,27 @@ class Db {
   }
 
   Future<List> getFriendData(String uid) async {
-    print(uid);
     var friends = await _db.collection('users').document(uid).get();
     List<String> friendList = [];
     for (var friend in friends.data['friends']) {
       friendList.add(friend);
     }
     return friendList;
+  }
+
+  Future<bool> saveFriend(String uid, String friendEmail) async {
+    var users = await _db.collection('users').getDocuments();
+    for (var user in users.documents) {
+      if (user.documentID == friendEmail) {
+        break;
+      }
+      return false;
+    }
+    List<String> test = [friendEmail];
+//    await _db
+//        .collection('users')
+//        .document(uid)
+//        .updateData({'friends': FieldValue.arrayUnion(test)});
+    return true;
   }
 }

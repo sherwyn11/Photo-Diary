@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:photo_diary/utils/consts.dart';
+import 'package:photo_diary/utils/databaseWork.dart';
 import 'package:photo_diary/utils/hexColor.dart';
 
 class NewFriendDialog extends StatelessWidget {
@@ -39,7 +42,20 @@ class NewFriendDialog extends StatelessWidget {
             ),
           ),
           RaisedButton(
-            onPressed: () {},
+            onPressed: () async {
+              bool done =
+                  await Db().saveFriend(uidConst, _textEditingController.text);
+              if (done) {
+                Navigator.pop(context);
+              } else {
+                Fluttertoast.showToast(
+                  msg: "This is Toast messaget",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.CENTER,
+                  timeInSecForIosWeb: 1,
+                );
+              }
+            },
             color: HexColor('#8FB9A8'),
             child: Text(
               'Add!',
