@@ -25,7 +25,7 @@ class MyBottomAppBar extends StatelessWidget {
               showDialog(
                 context: context,
                 builder: (BuildContext context) => FriendsDialog(
-                  dataVal: data,
+                  dataVal: data[0],
                 ),
               );
             },

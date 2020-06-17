@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:core';
 import 'dart:io';
 
@@ -78,25 +79,53 @@ class Db {
   Future<List> getFriendData(String uid) async {
     var friends = await _db.collection('users').document(uid).get();
     List<String> friendList = [];
+    List<bool> isMajorList = [];
     for (var friend in friends.data['friends']) {
-      friendList.add(friend);
+      friendList.add(friend['user']);
+      isMajorList.add(friend['isMajor']);
     }
-    return friendList;
+    return [friendList, isMajorList];
   }
 
   Future<bool> saveFriend(String uid, String friendEmail) async {
+    int flag = 0;
     var users = await _db.collection('users').getDocuments();
     for (var user in users.documents) {
+      print(user.documentID);
       if (user.documentID == friendEmail) {
+        print('hrere');
+        flag = 1;
         break;
       }
+    }
+    if (flag == 0) {
       return false;
     }
-    List<String> test = [friendEmail];
-//    await _db
-//        .collection('users')
-//        .document(uid)
-//        .updateData({'friends': FieldValue.arrayUnion(test)});
+    var data = await getFriendData(friendEmail);
+    var friendList = data[0];
+    var isMajorList = data[1];
+
+    List<dynamic> newData = [
+      {'isMajor': true, 'user': friendEmail}
+    ];
+
+    for (var user in friendList) {
+      if (user == uid) {
+        List<dynamic> newDataIn = [
+          {'isMajor': false, 'user': friendEmail}
+        ];
+        await _db
+            .collection('users')
+            .document(uid)
+            .updateData({'friends': FieldValue.arrayUnion(newDataIn)});
+        return true;
+      }
+    }
+
+    await _db
+        .collection('users')
+        .document(uid)
+        .updateData({'friends': FieldValue.arrayUnion(newData)});
     return true;
   }
 }

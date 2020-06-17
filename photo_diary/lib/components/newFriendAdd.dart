@@ -49,7 +49,7 @@ class NewFriendDialog extends StatelessWidget {
                 Navigator.pop(context);
               } else {
                 Fluttertoast.showToast(
-                  msg: "This is Toast messaget",
+                  msg: "Some error occurred!",
                   toastLength: Toast.LENGTH_SHORT,
                   gravity: ToastGravity.CENTER,
                   timeInSecForIosWeb: 1,

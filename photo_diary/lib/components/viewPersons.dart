@@ -7,7 +7,7 @@ import 'package:photo_diary/utils/hexColor.dart';
 
 class FriendsDialog extends StatefulWidget {
   FriendsDialog({Key key, this.dataVal}) : super(key: key);
-  List<String> dataVal;
+  var dataVal;
 
   @override
   _FriendsState createState() => _FriendsState();
@@ -15,7 +15,9 @@ class FriendsDialog extends StatefulWidget {
 
 class _FriendsState extends State<FriendsDialog> {
   void getFriendList() async {
-    widget.dataVal = await Db().getFriendData(uidConst);
+    var temp = await Db().getFriendData(uidConst);
+    widget.dataVal = temp[0];
+    print(widget.dataVal[0]);
   }
 
   dialogContent(BuildContext context) {
@@ -77,7 +79,7 @@ class _FriendsState extends State<FriendsDialog> {
                                     padding: const EdgeInsets.fromLTRB(
                                         12.0, 12.0, 12.0, 6.0),
                                     child: Text(
-                                      widget.dataVal[index],
+                                      widget.dataVal[index].toString(),
                                       style: GoogleFonts.pacifico(
                                           textStyle: TextStyle(
                                         letterSpacing: 1.0,
