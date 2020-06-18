@@ -60,9 +60,12 @@ class _FriendsState extends State<FriendsDialog> {
                 child: ListView.builder(
                   itemBuilder: (context, index) {
                     return GestureDetector(
-                      onTap: () {
+                      onTap: () async {
                         print(widget.dataVal[index]);
                         otherEmailConst = widget.dataVal[index];
+                        await Db().getTimelineData(otherEmailConst);
+                        print(gestureOne);
+                        print(gestureTwo);
                         Navigator.pop(context, index);
                       },
                       child: Column(
@@ -81,10 +84,11 @@ class _FriendsState extends State<FriendsDialog> {
                                     child: Text(
                                       widget.dataVal[index].toString(),
                                       style: GoogleFonts.pacifico(
-                                          textStyle: TextStyle(
-                                        letterSpacing: 1.0,
-                                        fontSize: 15.0,
-                                      )),
+                                        textStyle: TextStyle(
+                                          letterSpacing: 1.0,
+                                          fontSize: 15.0,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ],

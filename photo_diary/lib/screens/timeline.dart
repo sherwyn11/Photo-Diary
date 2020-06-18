@@ -21,7 +21,7 @@ class TimelinePage extends StatefulWidget {
 }
 
 class _TimelinePageState extends State<TimelinePage> {
-  String otherEmail = 'darlenenazareth1999@gmail.com';
+  String otherEmail = otherEmailConst;
   bool loading = false;
   Firestore _db = Firestore.instance;
   String uid = "";
@@ -76,8 +76,8 @@ class _TimelinePageState extends State<TimelinePage> {
       body: StreamBuilder<QuerySnapshot>(
         stream: _db
             .collection('users')
-            .document(uid)
-            .collection(otherEmailConst)
+            .document(gestureOne)
+            .collection(gestureTwo)
             .snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {

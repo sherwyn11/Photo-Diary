@@ -6,6 +6,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:photo_diary/utils/consts.dart';
 
 class Db {
   Firestore _db = Firestore.instance;
@@ -68,12 +69,29 @@ class Db {
   }
 
   Future<Stream<QuerySnapshot>> getTimelineData(String otherEmail) async {
-    String uid = await getCurrentUserUID();
-    return _db
-        .collection('users')
-        .document(uid)
-        .collection(otherEmail)
-        .snapshots();
+    String uid = await getCurrentUserEmail();
+    var details = await _db.collection('users').document(uidConst).get();
+    for (var detail in details.data['friends']) {
+      if (detail['user'] == otherEmail) {
+        if (detail['isMajor']) {
+          gestureOne = uid;
+          gestureTwo = otherEmail;
+          return _db
+              .collection('users')
+              .document(uid)
+              .collection(otherEmail)
+              .snapshots();
+        } else {
+          gestureOne = otherEmail;
+          gestureTwo = uid;
+          return _db
+              .collection('users')
+              .document(otherEmail)
+              .collection(uid)
+              .snapshots();
+        }
+      }
+    }
   }
 
   Future<List> getFriendData(String uid) async {
@@ -93,7 +111,6 @@ class Db {
     for (var user in users.documents) {
       print(user.documentID);
       if (user.documentID == friendEmail) {
-        print('hrere');
         flag = 1;
         break;
       }

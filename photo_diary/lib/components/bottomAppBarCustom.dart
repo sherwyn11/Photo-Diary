@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:photo_diary/components/viewPersons.dart';
 import 'package:photo_diary/utils/consts.dart';
 import 'package:photo_diary/utils/databaseWork.dart';

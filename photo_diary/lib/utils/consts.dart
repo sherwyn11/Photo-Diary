@@ -6,4 +6,7 @@ class Consts {
 }
 
 String uidConst = "";
-String otherEmailConst = "darlenenazareth1999@gmail.com";
+String otherEmailConst = "sherwyndsouza1999@gmail.com";
+
+String gestureOne = "sherwyndsouza1999@gmail.com";
+String gestureTwo = "sherwyndsouza1999@gmail.com";

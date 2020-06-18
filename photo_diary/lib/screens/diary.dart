@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:photo_diary/components/tape.dart';
+import 'package:photo_diary/utils/consts.dart';
 import 'package:photo_diary/utils/databaseWork.dart';
 import 'package:photo_diary/utils/hexColor.dart';
 
@@ -27,7 +28,7 @@ class _DiaryPageState extends State<DiaryPage> {
   File _image;
   bool uploaded = false;
   String _text;
-  String otherEmail = 'darlenenazareth1999@gmail.com';
+  String otherEmail = otherEmailConst;
   String dateFinal;
   String url =
       'https://cdn.pastemagazine.com/www/articles/2020/04/23/the1975againagainmain.jpg';
@@ -42,7 +43,7 @@ class _DiaryPageState extends State<DiaryPage> {
 
     String uid = await Db().getCurrentUserEmail();
     url = await Db().storeImage(uid, otherEmail, _image, dateFinal);
-    await Db().addURL(uid, otherEmail, dateFinal, url, _text);
+    await Db().addURL(gestureOne, gestureTwo, dateFinal, url, _text);
     return true;
   }
 
@@ -54,7 +55,7 @@ class _DiaryPageState extends State<DiaryPage> {
 
     widget.text = _text;
 
-    await Db().addData(uid, otherEmail, dateFinal, url, _text);
+    await Db().addData(gestureOne, gestureTwo, dateFinal, url, _text);
 
     return true;
   }
