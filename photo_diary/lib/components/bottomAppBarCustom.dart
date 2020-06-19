@@ -3,7 +3,15 @@ import 'package:photo_diary/components/viewPersons.dart';
 import 'package:photo_diary/utils/consts.dart';
 import 'package:photo_diary/utils/databaseWork.dart';
 
-class MyBottomAppBar extends StatelessWidget {
+class MyBottomAppBar extends StatefulWidget {
+  MyBottomAppBar({Key key, this.drawerKey}) : super(key: key);
+  final GlobalKey drawerKey;
+
+  @override
+  _AppBarState createState() => _AppBarState();
+}
+
+class _AppBarState extends State<MyBottomAppBar> {
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(

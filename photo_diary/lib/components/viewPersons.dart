@@ -64,8 +64,8 @@ class _FriendsState extends State<FriendsDialog> {
                         print(widget.dataVal[index]);
                         otherEmailConst = widget.dataVal[index];
                         await Db().getTimelineData(otherEmailConst);
-                        print(gestureOne);
-                        print(gestureTwo);
+                        print('One ' + gestureOne);
+                        print('Two ' + gestureTwo);
                         Navigator.pop(context, index);
                       },
                       child: Column(

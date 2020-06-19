@@ -6,10 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:photo_diary/components/delayed_animation.dart';
+import 'package:photo_diary/utils/consts.dart';
 import 'package:photo_diary/utils/hexColor.dart';
 import 'package:photo_diary/utils/userData.dart';
 
@@ -19,7 +21,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
-  final int delayedAmount = 500;
+  final int delayedAmount = 100;
   double _scale;
   AnimationController _controller;
   bool loading = false;
@@ -45,6 +47,26 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
     return user;
   }
 
+  Future<void> checkIfLoggedIn() async {
+    if (await _auth.currentUser() != null) {
+      Fluttertoast.showToast(
+        msg: "User already logged in!",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+      );
+
+      _auth.currentUser().then((currUser) {
+        uidConst = currUser.email;
+        gestureOne = currUser.email;
+        gestureTwo = currUser.email;
+        otherEmailConst = currUser.email;
+        userName = currUser.displayName;
+        Navigator.pushReplacementNamed(context, "timeline");
+      });
+    }
+  }
+
   @override
   void initState() {
     _controller = AnimationController(
@@ -62,6 +84,8 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    checkIfLoggedIn();
+
     final color = Colors.white;
     _scale = 1 - _controller.value;
     return ModalProgressHUD(
@@ -94,17 +118,6 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                           ),
                           radius: 50.0,
                         )),
-                  ),
-                  DelayedAnimation(
-                    child: Text("Hi There!",
-                        style: GoogleFonts.pacifico(
-                          textStyle: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 35.0,
-                              letterSpacing: 3.0,
-                              color: color),
-                        )),
-                    delay: delayedAmount + 1000,
                   ),
                   SizedBox(
                     height: 30.0,
@@ -158,7 +171,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                   ),
                   DelayedAnimation(
                     child: Text(
-                      "says a thousand words...",
+                      "speaks a thousand words...",
                       style: GoogleFonts.pacifico(
                         textStyle: TextStyle(
                           fontSize: 22.0,
@@ -227,13 +240,14 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                         Navigator.pushNamed(context, "/signup");
                       },
                       child: Text(
-                        'Don\'t Have an account?',
+                        'Don\'t have an account?',
                         style: GoogleFonts.pacifico(
                           textStyle: TextStyle(
                             fontSize: 20.0,
                             letterSpacing: 2.0,
                             fontWeight: FontWeight.bold,
-                            color: color,
+                            decoration: TextDecoration.underline,
+                            color: color.withOpacity(0.8),
                           ),
                         ),
                       ),
@@ -248,25 +262,6 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
       ),
     );
   }
-
-  Widget get _animatedButtonUI => Container(
-        height: 60,
-        width: 270,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(100.0),
-          color: Colors.white,
-        ),
-        child: Center(
-          child: Text(
-            'Hi Reflectly',
-            style: TextStyle(
-              fontSize: 20.0,
-              fontWeight: FontWeight.bold,
-              color: Color(0xFF8185E2),
-            ),
-          ),
-        ),
-      );
 
   void _onTapDown(TapDownDetails details) {
     _controller.forward();

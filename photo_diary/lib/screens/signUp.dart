@@ -1,14 +1,18 @@
 import 'dart:ui';
 
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:photo_diary/components/delayed_animation.dart';
+import 'package:photo_diary/utils/consts.dart';
+import 'package:photo_diary/utils/databaseWork.dart';
 import 'package:photo_diary/utils/hexColor.dart';
 import 'package:photo_diary/utils/userData.dart';
 
@@ -18,7 +22,7 @@ class Signup extends StatefulWidget {
 }
 
 class _SignupState extends State<Signup> with SingleTickerProviderStateMixin {
-  final int delayedAmount = 500;
+  final int delayedAmount = 100;
   double _scale;
   AnimationController _controller;
   bool loading = false;
@@ -41,7 +45,29 @@ class _SignupState extends State<Signup> with SingleTickerProviderStateMixin {
     UserData data = new UserData(user.providerId, user.displayName,
         user.photoUrl, user.email, providerData);
 
+    await Db().saveNewUser(user.email);
+
     return user;
+  }
+
+  Future<void> checkIfLoggedIn() async {
+    if (await _auth.currentUser() != null) {
+      Fluttertoast.showToast(
+        msg: "User already logged in!",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+      );
+
+      _auth.currentUser().then((currUser) {
+        uidConst = currUser.email;
+        gestureOne = currUser.email;
+        gestureTwo = currUser.email;
+        otherEmailConst = currUser.email;
+        userName = currUser.displayName;
+        Navigator.pushReplacementNamed(context, "timeline");
+      });
+    }
   }
 
   @override
@@ -61,6 +87,8 @@ class _SignupState extends State<Signup> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    checkIfLoggedIn();
+
     final color = Colors.white;
     _scale = 1 - _controller.value;
     return ModalProgressHUD(
@@ -69,7 +97,7 @@ class _SignupState extends State<Signup> with SingleTickerProviderStateMixin {
       color: HexColor('#FCD0BA'),
       child: Builder(
         builder: (context) => Scaffold(
-          backgroundColor: HexColor('#FCD0BA'),
+          backgroundColor: HexColor('#F1828D'),
           body: Center(
             child: Padding(
               padding: EdgeInsets.all(8.0),
@@ -94,46 +122,78 @@ class _SignupState extends State<Signup> with SingleTickerProviderStateMixin {
                           radius: 50.0,
                         )),
                   ),
-                  DelayedAnimation(
-                    child: Text("Hi There",
-                        style: GoogleFonts.pacifico(
-                          textStyle: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 35.0,
-                              letterSpacing: 2.0,
-                              color: color),
-                        )),
-                    delay: delayedAmount + 1000,
-                  ),
-                  DelayedAnimation(
-                    child: Text(
-                      "I'm Reflectly",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 35.0,
-                          color: color),
-                    ),
-                    delay: delayedAmount + 2000,
-                  ),
                   SizedBox(
                     height: 30.0,
                   ),
                   DelayedAnimation(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TyperAnimatedTextKit(
+                        text: ["The Photo Diary"],
+                        textStyle: GoogleFonts.pacifico(
+                          textStyle: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 45.0,
+                            letterSpacing: 2.0,
+                            color: color,
+                            shadows: <Shadow>[
+                              Shadow(
+                                offset: Offset(4.0, 1.0),
+                                blurRadius: 3.0,
+                                color: Color.fromARGB(255, 0, 0, 0),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    delay: delayedAmount + 2000,
+                  ),
+                  SizedBox(
+                    height: 40.0,
+                  ),
+                  DelayedAnimation(
                     child: Text(
-                      "Your New Personal",
-                      style: TextStyle(fontSize: 20.0, color: color),
+                      "...because every picture, ",
+                      style: GoogleFonts.pacifico(
+                        textStyle: TextStyle(
+                          fontSize: 22.0,
+                          color: color,
+                          letterSpacing: 2.0,
+                          shadows: <Shadow>[
+                            Shadow(
+                              offset: Offset(2.0, 1.0),
+                              blurRadius: 3.0,
+                              color: Color.fromARGB(255, 0, 0, 0),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                     delay: delayedAmount + 3000,
                   ),
                   DelayedAnimation(
                     child: Text(
-                      "Journaling  companion",
-                      style: TextStyle(fontSize: 20.0, color: color),
+                      "speaks a thousand words...",
+                      style: GoogleFonts.pacifico(
+                        textStyle: TextStyle(
+                          fontSize: 22.0,
+                          color: color,
+                          letterSpacing: 2.0,
+                          shadows: <Shadow>[
+                            Shadow(
+                              offset: Offset(2.0, 1.0),
+                              blurRadius: 3.0,
+                              color: Color.fromARGB(255, 0, 0, 0),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                     delay: delayedAmount + 3000,
                   ),
                   SizedBox(
-                    height: 100.0,
+                    height: 75.0,
                   ),
                   DelayedAnimation(
                     child: GestureDetector(
@@ -164,10 +224,10 @@ class _SignupState extends State<Signup> with SingleTickerProviderStateMixin {
                           splashColor: Colors.white,
                           borderRadius: 4.0,
                           textStyle: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w700,
-                              fontFamily: "Roboto"),
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700,
+                          ),
                           darkMode: true,
                         ),
                       ),
@@ -178,12 +238,22 @@ class _SignupState extends State<Signup> with SingleTickerProviderStateMixin {
                     height: 50.0,
                   ),
                   DelayedAnimation(
-                    child: Text(
-                      "I Already have An Account".toUpperCase(),
-                      style: TextStyle(
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold,
-                          color: color),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, "/signup");
+                      },
+                      child: Text(
+                        'Already have an account?',
+                        style: GoogleFonts.pacifico(
+                          textStyle: TextStyle(
+                            fontSize: 20.0,
+                            letterSpacing: 2.0,
+                            fontWeight: FontWeight.bold,
+                            decoration: TextDecoration.underline,
+                            color: color.withOpacity(0.8),
+                          ),
+                        ),
+                      ),
                     ),
                     delay: delayedAmount + 5000,
                   ),
@@ -195,25 +265,6 @@ class _SignupState extends State<Signup> with SingleTickerProviderStateMixin {
       ),
     );
   }
-
-  Widget get _animatedButtonUI => Container(
-        height: 60,
-        width: 270,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(100.0),
-          color: Colors.white,
-        ),
-        child: Center(
-          child: Text(
-            'Hi Reflectly',
-            style: TextStyle(
-              fontSize: 20.0,
-              fontWeight: FontWeight.bold,
-              color: Color(0xFF8185E2),
-            ),
-          ),
-        ),
-      );
 
   void _onTapDown(TapDownDetails details) {
     _controller.forward();

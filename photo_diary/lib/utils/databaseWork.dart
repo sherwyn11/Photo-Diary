@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:core';
 import 'dart:io';
 
@@ -66,6 +65,21 @@ class Db {
     String url = dowurl.toString();
     print(url);
     return url;
+  }
+
+  Future<bool> saveNewUser(String email) async {
+    List<dynamic> newData = [
+      {'isMajor': true, 'user': email}
+    ];
+
+    await _db.collection('users').document(email).setData({'friends': newData});
+
+    gestureOne = email;
+    gestureTwo = email;
+    uidConst = email;
+    otherEmailConst = email;
+
+    return true;
   }
 
   Future<Stream<QuerySnapshot>> getTimelineData(String otherEmail) async {

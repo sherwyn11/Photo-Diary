@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:photo_diary/components/ballast.dart';
 import 'package:photo_diary/components/bottomAppBarCustom.dart';
+import 'package:photo_diary/components/myDrawer.dart';
 import 'package:photo_diary/components/rails.dart';
 import 'package:photo_diary/components/stations.dart';
 import 'package:photo_diary/utils/consts.dart';
@@ -21,6 +22,7 @@ class TimelinePage extends StatefulWidget {
 }
 
 class _TimelinePageState extends State<TimelinePage> {
+  GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
   String otherEmail = otherEmailConst;
   bool loading = false;
   Firestore _db = Firestore.instance;
@@ -39,6 +41,7 @@ class _TimelinePageState extends State<TimelinePage> {
     getUID();
 
     return Scaffold(
+      key: _drawerKey,
       backgroundColor: HexColor("#FCD0BA"),
       appBar: AppBar(
         title: Text(
@@ -72,7 +75,9 @@ class _TimelinePageState extends State<TimelinePage> {
           );
         },
       ),
-      bottomNavigationBar: MyBottomAppBar(),
+      bottomNavigationBar: MyBottomAppBar(
+        drawerKey: _drawerKey,
+      ),
       body: StreamBuilder<QuerySnapshot>(
         stream: _db
             .collection('users')
@@ -168,6 +173,9 @@ class _TimelinePageState extends State<TimelinePage> {
             itemCount: dates.length,
           );
         },
+      ),
+      drawer: MyDrawer(
+        name: userName,
       ),
     );
   }
