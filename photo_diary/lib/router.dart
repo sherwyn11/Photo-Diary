@@ -2,10 +2,16 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:photo_diary/screens/diary.dart';
 import 'package:photo_diary/screens/login.dart';
+import 'package:photo_diary/screens/signUp.dart';
 import 'package:photo_diary/screens/timeline.dart';
 
 class FluroRouter {
   static final router = Router();
+
+  static var signupHandler =
+      Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+    return Signup();
+  });
 
   static var loginHandler =
       Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
@@ -23,6 +29,9 @@ class FluroRouter {
   });
 
   static handleRoutes() {
+    router.define('signup',
+        handler: signupHandler, transitionType: TransitionType.fadeIn);
+
     router.define('login',
         handler: loginHandler, transitionType: TransitionType.cupertino);
 

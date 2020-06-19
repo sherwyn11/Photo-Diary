@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -13,12 +12,12 @@ import 'package:photo_diary/components/delayed_animation.dart';
 import 'package:photo_diary/utils/hexColor.dart';
 import 'package:photo_diary/utils/userData.dart';
 
-class Login extends StatefulWidget {
+class Signup extends StatefulWidget {
   @override
-  _LoginState createState() => _LoginState();
+  _SignupState createState() => _SignupState();
 }
 
-class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
+class _SignupState extends State<Signup> with SingleTickerProviderStateMixin {
   final int delayedAmount = 500;
   double _scale;
   AnimationController _controller;
@@ -70,7 +69,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
       color: HexColor('#FCD0BA'),
       child: Builder(
         builder: (context) => Scaffold(
-          backgroundColor: HexColor('#F1828D'),
+          backgroundColor: HexColor('#FCD0BA'),
           body: Center(
             child: Padding(
               padding: EdgeInsets.all(8.0),
@@ -96,88 +95,45 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                         )),
                   ),
                   DelayedAnimation(
-                    child: Text("Hi There!",
+                    child: Text("Hi There",
                         style: GoogleFonts.pacifico(
                           textStyle: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 35.0,
-                              letterSpacing: 3.0,
+                              letterSpacing: 2.0,
                               color: color),
                         )),
                     delay: delayedAmount + 1000,
+                  ),
+                  DelayedAnimation(
+                    child: Text(
+                      "I'm Reflectly",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 35.0,
+                          color: color),
+                    ),
+                    delay: delayedAmount + 2000,
                   ),
                   SizedBox(
                     height: 30.0,
                   ),
                   DelayedAnimation(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TyperAnimatedTextKit(
-                        text: ["The Photo Diary"],
-                        textStyle: GoogleFonts.pacifico(
-                          textStyle: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 45.0,
-                            letterSpacing: 2.0,
-                            color: color,
-                            shadows: <Shadow>[
-                              Shadow(
-                                offset: Offset(4.0, 1.0),
-                                blurRadius: 3.0,
-                                color: Color.fromARGB(255, 0, 0, 0),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    delay: delayedAmount + 2000,
-                  ),
-                  SizedBox(
-                    height: 40.0,
-                  ),
-                  DelayedAnimation(
                     child: Text(
-                      "...because every picture, ",
-                      style: GoogleFonts.pacifico(
-                        textStyle: TextStyle(
-                          fontSize: 22.0,
-                          color: color,
-                          letterSpacing: 2.0,
-                          shadows: <Shadow>[
-                            Shadow(
-                              offset: Offset(2.0, 1.0),
-                              blurRadius: 3.0,
-                              color: Color.fromARGB(255, 0, 0, 0),
-                            ),
-                          ],
-                        ),
-                      ),
+                      "Your New Personal",
+                      style: TextStyle(fontSize: 20.0, color: color),
                     ),
                     delay: delayedAmount + 3000,
                   ),
                   DelayedAnimation(
                     child: Text(
-                      "says a thousand words...",
-                      style: GoogleFonts.pacifico(
-                        textStyle: TextStyle(
-                          fontSize: 22.0,
-                          color: color,
-                          letterSpacing: 2.0,
-                          shadows: <Shadow>[
-                            Shadow(
-                              offset: Offset(2.0, 1.0),
-                              blurRadius: 3.0,
-                              color: Color.fromARGB(255, 0, 0, 0),
-                            ),
-                          ],
-                        ),
-                      ),
+                      "Journaling  companion",
+                      style: TextStyle(fontSize: 20.0, color: color),
                     ),
                     delay: delayedAmount + 3000,
                   ),
                   SizedBox(
-                    height: 75.0,
+                    height: 100.0,
                   ),
                   DelayedAnimation(
                     child: GestureDetector(
@@ -208,10 +164,10 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                           splashColor: Colors.white,
                           borderRadius: 4.0,
                           textStyle: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700,
-                          ),
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w700,
+                              fontFamily: "Roboto"),
                           darkMode: true,
                         ),
                       ),
@@ -222,21 +178,12 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                     height: 50.0,
                   ),
                   DelayedAnimation(
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, "/signup");
-                      },
-                      child: Text(
-                        'Don\'t Have an account?',
-                        style: GoogleFonts.pacifico(
-                          textStyle: TextStyle(
-                            fontSize: 20.0,
-                            letterSpacing: 2.0,
-                            fontWeight: FontWeight.bold,
-                            color: color,
-                          ),
-                        ),
-                      ),
+                    child: Text(
+                      "I Already have An Account".toUpperCase(),
+                      style: TextStyle(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                          color: color),
                     ),
                     delay: delayedAmount + 5000,
                   ),
