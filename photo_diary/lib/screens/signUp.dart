@@ -65,7 +65,7 @@ class _SignupState extends State<Signup> with SingleTickerProviderStateMixin {
         gestureTwo = currUser.email;
         otherEmailConst = currUser.email;
         userName = currUser.displayName;
-        Navigator.pushReplacementNamed(context, "timeline");
+        Navigator.pushReplacementNamed(context, "/info");
       });
     }
   }
@@ -87,8 +87,6 @@ class _SignupState extends State<Signup> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    checkIfLoggedIn();
-
     final color = Colors.white;
     _scale = 1 - _controller.value;
     return ModalProgressHUD(
@@ -212,7 +210,7 @@ class _SignupState extends State<Signup> with SingleTickerProviderStateMixin {
                                         loading = false;
                                       }),
                                       Navigator.pushReplacementNamed(
-                                          context, "timeline")
+                                          context, "/info")
                                     })
                                 .catchError((e) => {
                                       setState(() {

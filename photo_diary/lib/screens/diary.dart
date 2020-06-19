@@ -31,7 +31,7 @@ class _DiaryPageState extends State<DiaryPage> {
   String otherEmail = otherEmailConst;
   String dateFinal;
   String url =
-      'https://cdn.pastemagazine.com/www/articles/2020/04/23/the1975againagainmain.jpg';
+      'https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/b68b1672658119.5beea616e7eaf.jpg';
 
   Future<bool> getImage() async {
     final pickedFile = await _picker.getImage(source: ImageSource.gallery);
@@ -209,6 +209,11 @@ class _DiaryPageState extends State<DiaryPage> {
                               TextFormField(
                                 cursorColor: HexColor('#8FB9A8'),
                                 maxLines: 10,
+                                style: GoogleFonts.pacifico(
+                                  textStyle: TextStyle(
+                                    letterSpacing: 2.0,
+                                  ),
+                                ),
                                 keyboardType: TextInputType.multiline,
                                 controller: _textEditingController
                                   ..text = _text,

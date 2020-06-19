@@ -62,7 +62,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
         gestureTwo = currUser.email;
         otherEmailConst = currUser.email;
         userName = currUser.displayName;
-        Navigator.pushReplacementNamed(context, "timeline");
+        Navigator.pushReplacementNamed(context, "/timeline");
       });
     }
   }
@@ -209,7 +209,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                         loading = false;
                                       }),
                                       Navigator.pushReplacementNamed(
-                                          context, "timeline")
+                                          context, "/timeline")
                                     })
                                 .catchError((e) => {
                                       setState(() {

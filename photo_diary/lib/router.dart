@@ -1,6 +1,7 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:photo_diary/screens/diary.dart';
+import 'package:photo_diary/screens/info.dart';
 import 'package:photo_diary/screens/login.dart';
 import 'package:photo_diary/screens/signUp.dart';
 import 'package:photo_diary/screens/timeline.dart';
@@ -28,6 +29,11 @@ class FluroRouter {
     return DiaryPage();
   });
 
+  static var infoHandler =
+      Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+    return Info();
+  });
+
   static handleRoutes() {
     router.define('signup',
         handler: signupHandler, transitionType: TransitionType.fadeIn);
@@ -40,5 +46,8 @@ class FluroRouter {
 
     router.define('diary',
         handler: diaryHandler, transitionType: TransitionType.fadeIn);
+
+    router.define('info',
+        handler: infoHandler, transitionType: TransitionType.cupertino);
   }
 }
