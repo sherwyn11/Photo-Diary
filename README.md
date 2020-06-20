@@ -1,4 +1,4 @@
-# The Photo Diary <img src="https://mpng.subpng.com/20180703/evz/kisspng-camera-logo-photography-clip-art-5b3bccc7496876.4498270915306457033007.jpg" height="45" width="75"/>
+# Photo Diary <img src="https://mpng.subpng.com/20180703/evz/kisspng-camera-logo-photography-clip-art-5b3bccc7496876.4498270915306457033007.jpg" height="45" width="75"/>
 
 <div style="text-align:center;">
   
