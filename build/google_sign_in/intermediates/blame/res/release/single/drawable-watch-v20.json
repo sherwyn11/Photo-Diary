@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "/Users/sherwyndsouza/Desktop/GitHub/Photo-Diary/photo_diary/build/google_sign_in/intermediates/res/merged/release/drawable-watch-v20/common_google_signin_btn_text_dark_normal.xml",
+        "source": "/Users/sherwyndsouza/.gradle/caches/transforms-2/files-2.1/f4b2a428c8c82dc5edd51196d7600a1a/jetified-play-services-auth-16.0.1/res/drawable-watch-v20/common_google_signin_btn_text_dark_normal.xml"
+    },
+    {
+        "merged": "/Users/sherwyndsouza/Desktop/GitHub/Photo-Diary/photo_diary/build/google_sign_in/intermediates/res/merged/release/drawable-watch-v20/common_google_signin_btn_text_disabled.xml",
+        "source": "/Users/sherwyndsouza/.gradle/caches/transforms-2/files-2.1/f4b2a428c8c82dc5edd51196d7600a1a/jetified-play-services-auth-16.0.1/res/drawable-watch-v20/common_google_signin_btn_text_disabled.xml"
+    },
+    {
+        "merged": "/Users/sherwyndsouza/Desktop/GitHub/Photo-Diary/photo_diary/build/google_sign_in/intermediates/res/merged/release/drawable-watch-v20/common_google_signin_btn_text_light_normal.xml",
+        "source": "/Users/sherwyndsouza/.gradle/caches/transforms-2/files-2.1/f4b2a428c8c82dc5edd51196d7600a1a/jetified-play-services-auth-16.0.1/res/drawable-watch-v20/common_google_signin_btn_text_light_normal.xml"
+    }
+]

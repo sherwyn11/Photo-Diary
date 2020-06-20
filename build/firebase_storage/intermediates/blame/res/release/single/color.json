@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "/Users/sherwyndsouza/Desktop/GitHub/Photo-Diary/photo_diary/build/firebase_storage/intermediates/res/merged/release/color/common_google_signin_btn_text_dark.xml",
+        "source": "/Users/sherwyndsouza/.gradle/caches/transforms-2/files-2.1/cfeea2e3f829f9243c365bf71bb0b45a/jetified-play-services-base-16.0.1/res/color/common_google_signin_btn_text_dark.xml"
+    },
+    {
+        "merged": "/Users/sherwyndsouza/Desktop/GitHub/Photo-Diary/photo_diary/build/firebase_storage/intermediates/res/merged/release/color/common_google_signin_btn_tint.xml",
+        "source": "/Users/sherwyndsouza/.gradle/caches/transforms-2/files-2.1/cfeea2e3f829f9243c365bf71bb0b45a/jetified-play-services-base-16.0.1/res/color/common_google_signin_btn_tint.xml"
+    },
+    {
+        "merged": "/Users/sherwyndsouza/Desktop/GitHub/Photo-Diary/photo_diary/build/firebase_storage/intermediates/res/merged/release/color/common_google_signin_btn_text_light.xml",
+        "source": "/Users/sherwyndsouza/.gradle/caches/transforms-2/files-2.1/cfeea2e3f829f9243c365bf71bb0b45a/jetified-play-services-base-16.0.1/res/color/common_google_signin_btn_text_light.xml"
+    }
+]

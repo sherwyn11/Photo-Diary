@@ -1,0 +1,34 @@
+# Referenced at /Users/sherwyndsouza/Desktop/GitHub/Photo-Diary/photo_diary/build/app/intermediates/merged_manifests/release/AndroidManifest.xml:27
+-keep class androidx.core.app.CoreComponentFactory { <init>(); }
+# Referenced at /Users/sherwyndsouza/Desktop/GitHub/Photo-Diary/photo_diary/build/app/intermediates/merged_manifests/release/AndroidManifest.xml:32
+-keep class com.example.photo_diary.MainActivity { <init>(); }
+# Referenced at /Users/sherwyndsouza/Desktop/GitHub/Photo-Diary/photo_diary/build/app/intermediates/merged_manifests/release/AndroidManifest.xml:133
+-keep class com.google.android.gms.auth.api.signin.RevocationBoundService { <init>(); }
+# Referenced at /Users/sherwyndsouza/Desktop/GitHub/Photo-Diary/photo_diary/build/app/intermediates/merged_manifests/release/AndroidManifest.xml:124
+-keep class com.google.android.gms.auth.api.signin.internal.SignInHubActivity { <init>(); }
+# Referenced at /Users/sherwyndsouza/Desktop/GitHub/Photo-Diary/photo_diary/build/app/intermediates/merged_manifests/release/AndroidManifest.xml:197
+-keep class com.google.android.gms.common.api.GoogleApiActivity { <init>(); }
+# Referenced at /Users/sherwyndsouza/Desktop/GitHub/Photo-Diary/photo_diary/build/app/intermediates/merged_manifests/release/AndroidManifest.xml:177
+-keep class com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver { <init>(); }
+# Referenced at /Users/sherwyndsouza/Desktop/GitHub/Photo-Diary/photo_diary/build/app/intermediates/merged_manifests/release/AndroidManifest.xml:191
+-keep class com.google.android.gms.measurement.AppMeasurementJobService { <init>(); }
+# Referenced at /Users/sherwyndsouza/Desktop/GitHub/Photo-Diary/photo_diary/build/app/intermediates/merged_manifests/release/AndroidManifest.xml:172
+-keep class com.google.android.gms.measurement.AppMeasurementReceiver { <init>(); }
+# Referenced at /Users/sherwyndsouza/Desktop/GitHub/Photo-Diary/photo_diary/build/app/intermediates/merged_manifests/release/AndroidManifest.xml:187
+-keep class com.google.android.gms.measurement.AppMeasurementService { <init>(); }
+# Referenced at /Users/sherwyndsouza/Desktop/GitHub/Photo-Diary/photo_diary/build/app/intermediates/merged_manifests/release/AndroidManifest.xml:138
+-keep class com.google.firebase.auth.internal.FederatedSignInActivity { <init>(); }
+# Referenced at /Users/sherwyndsouza/Desktop/GitHub/Photo-Diary/photo_diary/build/app/intermediates/merged_manifests/release/AndroidManifest.xml:74
+-keep class com.google.firebase.components.ComponentDiscoveryService { <init>(); }
+# Referenced at /Users/sherwyndsouza/Desktop/GitHub/Photo-Diary/photo_diary/build/app/intermediates/merged_manifests/release/AndroidManifest.xml:146
+-keep class com.google.firebase.iid.FirebaseInstanceIdReceiver { <init>(); }
+# Referenced at /Users/sherwyndsouza/Desktop/GitHub/Photo-Diary/photo_diary/build/app/intermediates/merged_manifests/release/AndroidManifest.xml:158
+-keep class com.google.firebase.iid.FirebaseInstanceIdService { <init>(); }
+# Referenced at /Users/sherwyndsouza/Desktop/GitHub/Photo-Diary/photo_diary/build/app/intermediates/merged_manifests/release/AndroidManifest.xml:166
+-keep class com.google.firebase.provider.FirebaseInitProvider { <init>(); }
+# Referenced at /Users/sherwyndsouza/Desktop/GitHub/Photo-Diary/photo_diary/build/app/intermediates/merged_manifests/release/AndroidManifest.xml:27
+-keep class io.flutter.app.FlutterApplication { <init>(); }
+# Referenced at /Users/sherwyndsouza/Desktop/GitHub/Photo-Diary/photo_diary/build/app/intermediates/merged_manifests/release/AndroidManifest.xml:110
+-keep class io.flutter.plugins.imagepicker.ImagePickerFileProvider { <init>(); }
+# Referenced at /Users/sherwyndsouza/Desktop/GitHub/Photo-Diary/photo_diary/build/app/intermediates/merged_manifests/release/AndroidManifest.xml:120
+-keep class io.flutter.plugins.urllauncher.WebViewActivity { <init>(); }
