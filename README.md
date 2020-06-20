@@ -6,6 +6,11 @@ A Photo Diary app that lets you store moments of the day on the go. This app was
 
 </div>
 
+
+## Working Demonstration
+
+![](Readme_requirements/Photo-Diary.gif)
+
 <br>
 
 ## Getting Started
