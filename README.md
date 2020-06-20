@@ -57,4 +57,8 @@ You can also download the app from this <a href="https://drive.google.com/file/d
 
 ## License
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+[MIT License Link](https://github.com/sherwyn11/The-Photo-Diary/blob/master/LICENSE)
+
 © 2020 Sherwyn D'souza
