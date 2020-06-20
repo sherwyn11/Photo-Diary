@@ -4,10 +4,13 @@
   
 A Photo Diary app that lets you store moments of the day on the go. This app was made using Flutter and Firebase
 
-<img align="left" src="https://flutter.dev/images/flutter-logo-sharing.png" height="220px" width="450px"/>
-<img src="https://firebase.google.com/images/brand-guidelines/logo-standard.png" height="180px" width="550px"/>
-
 </div>
+
+<br>
+
+## Working Demonstration
+
+![](Readme_requirements/Photo-Diary.gif)
 
 <br>
 
@@ -36,12 +39,6 @@ flutter run
 
 <br>
 
-## Working Demonstration
-
-![](Readme_requirements/Photo-Diary.gif)
-
-<br>
-
 ## Main Requirements
 
 <ul>
@@ -50,6 +47,9 @@ flutter run
 <li>Firebase Cloud Storage</li>
 <li>Firebase Cloud Firestore</li>
 </ul>
+
+<img align="left" src="https://flutter.dev/images/flutter-logo-sharing.png" height="220px" width="450px"/>
+<img src="https://firebase.google.com/images/brand-guidelines/logo-standard.png" height="180px" width="550px"/>
 
 ## Usage
 
