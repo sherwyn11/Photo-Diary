@@ -50,7 +50,7 @@ flutter run
 <img align="left" src="https://flutter.dev/images/flutter-logo-sharing.png" height="220px" width="450px"/>
 <img src="https://firebase.google.com/images/brand-guidelines/logo-standard.png" height="180px" width="550px"/>
 
-## Usage
+## Download the app
 
 You can also download the app from this <a href="https://drive.google.com/file/d/1YcVPr8MuqSFQjZ9u2dh6r7fhCENepTx4/view?usp=sharing">link</a>
 
