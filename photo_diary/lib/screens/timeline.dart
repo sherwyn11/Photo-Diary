@@ -89,9 +89,11 @@ class _TimelinePageState extends State<TimelinePage> {
               .snapshots(),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
-              this.setState(() {
-                loading = true;
-              });
+              return Center(
+                child: CircularProgressIndicator(
+                  backgroundColor: HexColor('#8FB9A8'),
+                ),
+              );
             }
             final dateSnapshot = snapshot.data.documents;
             List<String> dates = [];

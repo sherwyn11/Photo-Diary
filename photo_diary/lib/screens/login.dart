@@ -26,6 +26,12 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
   AnimationController _controller;
   bool loading = false;
 
+  @override
+  dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = new GoogleSignIn();
 

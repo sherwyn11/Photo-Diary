@@ -39,6 +39,8 @@ dependencies:
   animated_text_kit:
   flare_flutter:
   flutter_launcher_icons:
+  font_awesome_flutter:
+  url_launcher:
 
   flutter:
     sdk: flutter

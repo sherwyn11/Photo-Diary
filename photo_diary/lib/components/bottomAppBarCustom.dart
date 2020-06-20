@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:photo_diary/components/credits.dart';
 import 'package:photo_diary/components/viewPersons.dart';
 import 'package:photo_diary/utils/consts.dart';
 import 'package:photo_diary/utils/databaseWork.dart';
@@ -23,7 +24,12 @@ class _AppBarState extends State<MyBottomAppBar> {
         children: <Widget>[
           IconButton(
             icon: Icon(Icons.menu),
-            onPressed: () {},
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) => Credits(),
+              );
+            },
           ),
           IconButton(
             icon: Icon(Icons.person),

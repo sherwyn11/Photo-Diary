@@ -30,6 +30,12 @@ class _SignupState extends State<Signup> with SingleTickerProviderStateMixin {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = new GoogleSignIn();
 
+  @override
+  dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   Future<FirebaseUser> _signIn(BuildContext context) async {
     final GoogleSignInAccount account = await _googleSignIn.signIn();
     final GoogleSignInAuthentication googleAuth = await account.authentication;

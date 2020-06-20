@@ -17,6 +17,12 @@ class _DelayedAnimationState extends State<DelayedAnimation>
   Animation<Offset> _animOffset;
 
   @override
+  dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   void initState() {
     super.initState();
 
@@ -35,12 +41,6 @@ class _DelayedAnimationState extends State<DelayedAnimation>
         _controller.forward();
       });
     }
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _controller.dispose();
   }
 
   @override
