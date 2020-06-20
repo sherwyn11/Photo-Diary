@@ -21,7 +21,7 @@ A Photo Diary app that lets you store moments of the day on the go. This app was
 git clone <this_repo_url>
 ```
 
-2. From the root folder, `The-Photo-Diary`, get the required packages
+2. From the root folder, `Photo-Diary`, get the required packages
 
 ```bash
 cd photo_diary
