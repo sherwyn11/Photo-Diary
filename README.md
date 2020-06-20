@@ -5,7 +5,7 @@
 A Photo Diary app that lets you store moments of the day on the go. This app was made using Flutter and Firebase
 
 </div>
-
+<br>
 
 ## Working Demonstration
 
@@ -60,4 +60,5 @@ You can also download the app from this <a href="https://drive.google.com/file/d
 
 [MIT License Link](https://github.com/sherwyn11/The-Photo-Diary/blob/master/LICENSE)
 
+<br>
 © 2020 Sherwyn D'souza
