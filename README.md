@@ -2,7 +2,7 @@
 
 <div style="text-align:center;">
   
-A Photo Diary app that lets you store moments of the day on the go. This app was made using Flutter and Firebase.
+A Photo Diary app that lets you store moments of the day on the go. This app was made using Flutter and Firebase
 
 <img align="left" src="https://flutter.dev/images/flutter-logo-sharing.png" height="220px" width="450px"/>
 <img src="https://firebase.google.com/images/brand-guidelines/logo-standard.png" height="180px" width="550px"/>
