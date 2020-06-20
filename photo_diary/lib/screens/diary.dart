@@ -218,59 +218,62 @@ class _DiaryPageState extends State<DiaryPage> {
                         content: Container(
                           height: MediaQuery.of(context).size.height / 2,
                           width: MediaQuery.of(context).size.width / 2,
-                          child: Center(
-                            child: Column(
-                              children: <Widget>[
-                                TextFormField(
-                                  cursorColor: HexColor('#8FB9A8'),
-                                  maxLines: 10,
-                                  style: GoogleFonts.pacifico(
-                                    textStyle: TextStyle(
-                                      letterSpacing: 2.0,
+                          child: SingleChildScrollView(
+                            child: Center(
+                              child: Column(
+                                children: <Widget>[
+                                  TextFormField(
+                                    cursorColor: HexColor('#8FB9A8'),
+                                    maxLines: 10,
+                                    style: GoogleFonts.pacifico(
+                                      textStyle: TextStyle(
+                                        letterSpacing: 2.0,
+                                      ),
+                                    ),
+                                    keyboardType: TextInputType.multiline,
+                                    controller: _textEditingController
+                                      ..text = _text,
+                                    textCapitalization:
+                                        TextCapitalization.sentences,
+                                  ),
+                                  SizedBox(
+                                    height: 10.0,
+                                  ),
+                                  RaisedButton(
+                                    color: HexColor('#8FB9A8'),
+                                    onPressed: () async {
+                                      setState(() {
+                                        uploading = true;
+                                      });
+                                      if (await updateText()) {
+                                        setState(() {
+                                          uploading = false;
+                                        });
+                                        Navigator.of(context,
+                                                rootNavigator: true)
+                                            .pop('dialog');
+                                      }
+                                    },
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: <Widget>[
+                                        Text(
+                                          'Update my Diary',
+                                          style: GoogleFonts.pacifico(
+                                            textStyle: TextStyle(
+                                                letterSpacing: 1.0,
+                                                fontSize: 18.0),
+                                          ),
+                                        ),
+                                        Icon(Icons.cloud_upload),
+                                      ],
                                     ),
                                   ),
-                                  keyboardType: TextInputType.multiline,
-                                  controller: _textEditingController
-                                    ..text = _text,
-                                  textCapitalization:
-                                      TextCapitalization.sentences,
-                                ),
-                                SizedBox(
-                                  height: 10.0,
-                                ),
-                                RaisedButton(
-                                  color: HexColor('#8FB9A8'),
-                                  onPressed: () async {
-                                    setState(() {
-                                      uploading = true;
-                                    });
-                                    if (await updateText()) {
-                                      setState(() {
-                                        uploading = false;
-                                      });
-                                      Navigator.of(context, rootNavigator: true)
-                                          .pop('dialog');
-                                    }
-                                  },
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: <Widget>[
-                                      Text(
-                                        'Update my Diary',
-                                        style: GoogleFonts.pacifico(
-                                          textStyle: TextStyle(
-                                              letterSpacing: 1.0,
-                                              fontSize: 18.0),
-                                        ),
-                                      ),
-                                      Icon(Icons.cloud_upload),
-                                    ],
-                                  ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),
