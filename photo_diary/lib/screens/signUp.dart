@@ -244,7 +244,7 @@ class _SignupState extends State<Signup> with SingleTickerProviderStateMixin {
                   DelayedAnimation(
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, "/signup");
+                        Navigator.pushNamed(context, "/login");
                       },
                       child: Text(
                         'Already have an account?',
